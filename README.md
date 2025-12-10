@@ -12,31 +12,26 @@
 | birthday            | date    | null: false               |
 
 ### Association
-- has_many :sells
-- has_many :comments
+- has_many :items
 
 
-## sellsテーブル
+## itemsテーブル
 
-| Column        | Type       | Options                        |
-| ------------  | ---------- | ------------------------------ |
-| item_name     | string     | null: false                    |
-| description   | text       | null: false                    |
-| category      | integer    | null: false                    |
-| item_status   | integer    | null: false                    |
-| shipping_fee  | integer    | null: false                    |
-| shipping_area | integer    | null: false                    |
-| shipping_days | integer    | null: false                    |
-| price         | float      | null: false                    |
-| commission    | float      | null: false                    |
-| profit        | float      | null: false                    |
-| favorite      | integer    |                                |
-| report        | integer    |                                |
-| flag_sold     | integer    | null: false                    |
-| sell_user_id  | references | null: false, foreign_key: true |
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| item_name        | string     | null: false                    |
+| description      | text       | null: false                    |
+| category_id      | integer    | null: false                    |
+| item_status_id   | integer    | null: false                    |
+| shipping_fee_id  | integer    | null: false                    |
+| prefecture_id    | integer    | null: false                    |
+| shipping_day_id  | integer    | null: false                    |
+| price            | integer    | null: false                    |
+| user             | references | null: false, foreign_key: true |
 
 ### Association
-- has_many    :comments
+- has_one :oder_history
+- belongs_to :user
 - belongs_to :category
 - belongs_to :shipping_area
 - belongs_to :item_status
@@ -49,31 +44,30 @@
 | Column        | Type       | Options                        |
 | ------------  | ---------- | ------------------------------ |
 | postscript    | string     | null: false                    |
-| prefecture    | integer    | null: false                    |
+| prefecture_id | integer    | null: false                    |
 | city          | text       | null: false                    |
 | house_number  | text       | null: false                    |
 | building      | text       |                                |
 | phone_number  | string     | null: false                    |
-| sell_id       | references | null: false, foreign_key: true |
-| buy_user_id   | references | null: false, foreign_key: true |
+| sell          | references | null: false, foreign_key: true |
+| user          | references | null: false, foreign_key: true |
 
 ### Association
-- belongs_to :sell
+- has_one :oder_history
+- belongs_to :items
 - belongs_to :user
 - belongs_to :shipping_area
 
+## order_historyテーブル
 
-## commentsテーブル
-
-| Column     | Type       | Options                        |
-| ---------- | ---------- | ------------------------------ |
-| content    | text       | null: false                    |
-| sells_id   | references | null: false, foreign_key: true |
-| user_id    | references | null: false, foreign_key: true |  
+| Column      | Type       | Options                        |
+| ----------- | ---------- | ------------------------------ |
+| item_id     | integer    | null: false, unique: true      |
+| shipping_id | integer    | null: false                    |
 
 ### Association
-- belongs_to :sell
-- belongs_to :user
+- belongs_to :items
+- belongs_to :shipping
 
 
 ## categoriesテーブル
@@ -85,7 +79,7 @@
  
 
 ### Association
-- has_many    :sells
+- has_many    :items
 
 
 ## shipping_areasテーブル
@@ -97,7 +91,7 @@
  
 
 ### Association
-- has_many    :sells
+- has_many    :items
 - has_many    :shippings
 
 
@@ -110,7 +104,7 @@
  
 
 ### Association
-- has_many    :sells
+- has_many    :items
 
 
 ## shipping_daysテーブル
@@ -122,7 +116,7 @@
  
 
 ### Association
-- has_many    :sells
+- has_many    :items
 
 
 ## item_statusesテーブル
@@ -134,5 +128,5 @@
  
 
 ### Association
-- has_many    :sells
+- has_many    :items
 
