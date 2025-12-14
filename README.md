@@ -13,6 +13,7 @@
 
 ### Association
 - has_many :items
+- has_many :order_histories
 
 
 ## itemsテーブル
@@ -40,27 +41,26 @@
 | ------------  | ---------- | ------------------------------ |
 | postscript    | string     | null: false                    |
 | prefecture_id | integer    | null: false                    |
-| city          | text       | null: false                    |
-| house_number  | text       | null: false                    |
-| building      | text       |                                |
+| city          | string     | null: false                    |
+| house_number  | string     | null: false                    |
+| building      | string     |                                |
 | phone_number  | string     | null: false                    |
-| item          | references | null: false, foreign_key: true |
-| user          | references | null: false, foreign_key: true |
 
 ### Association
-- has_one :order_history
 - belongs_to :item
 - belongs_to :user
+- belongs_to :order_history
 
 
-## order_historysテーブル
+## order_historiesテーブル
 
-| Column      | Type       | Options                        |
-| ----------- | ---------- | ------------------------------ |
-| item        | reference  | null: false                    |
-| shipping    | reference  | null: false, foreign_key: true |
+| Column      | Type       | Options                         |
+| ----------- | ---------- | ------------------------------- |
+| item        | reference  | null: false, foreign_key: true  |
+| user        | reference  | null: false, foreign_key: true  |
 
 ### Association
+- has_one :shipping
 - belongs_to :item
-- belongs_to :shipping
+- belongs_to :user
 
