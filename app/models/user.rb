@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :items
+  has_many :order_histories
+
   validates :nickname, presence: true
 
   validates :password, format: { with: /\A(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+\z/, message: 'は半角英数字の両方を含めて設定してください' }
@@ -20,5 +23,4 @@ class User < ApplicationRecord
 
   validates :birthday, presence: true
 
-  has_many :items
 end
