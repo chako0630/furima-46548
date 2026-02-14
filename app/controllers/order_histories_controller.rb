@@ -1,7 +1,10 @@
 class OrderHistoriesController < ApplicationController
-  before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!
+  before_action :set_item, only: [:index, :create]
+  before_action :move_to_index, only: :create
+
   def index
-    @item = Item.find(params[:item_id])
+    @order_history_shipping = OrderHistoryShipping.new
   end
 
   #  def create
@@ -16,16 +19,19 @@ class OrderHistoriesController < ApplicationController
 
   private
 
-  def item_params
-    params.require(:item).permit(:item_name, :description, :category_id, :item_status_id, :shipping_fee_id, :prefecture_id,
-                                 :shipping_day_id, :price, :image).merge(user_id: current_user.id)
+  def order_history_shipping_params
+    params.require(:order_history_shipping).permit(:postscript, :prefecture_id, :city, :house_number, :building, :phone_number).merge(
+      item_id: params[:item_id], user_id: current_user.id
+    )
   end
 
-  def order_history_params
-    params.permit(:item_id, :user_id)
+  def set_item
+    @item = Item.find(params[:item_id])
   end
 
-  def shipping_params
-    params.permit(:postscript, :prefecture_id, :city, :house_number, :building, :phone_number)
+  def move_to_index
+    return if @item.user_id == current_user.id && @item.order_history.present?
+
+    redirect_to root_path
   end
 end
