@@ -1,6 +1,7 @@
 class OrderHistoryShipping
   include ActiveModel::Model
   attr_accessor :item_id, :user_id, :postscript, :prefecture_id, :city, :house_number, :building, :phone_number
+  attr_accessor :token
 
   with_options presence: true do
     validates :item_id
@@ -10,6 +11,7 @@ class OrderHistoryShipping
     validates :city
     validates :house_number
     validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'is invalid' }
+    validates :token
   end
 
   def save

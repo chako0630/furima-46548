@@ -31,7 +31,7 @@
     </div>
     <%# /支払額の表示 %>
 
-    <%= form_with model: @order_history_shipping, url: item_order_histories_path(@item), class: 'transaction-form-wrap',local: true do |f| %>
+    <%= form_with model: @order_history_shipping, url: item_order_histories_path(@item), class: 'transaction-form-wrap',id: 'charge-form',local: true do |f| %>
      <%= render 'shared/error_messages', model: f.object %>
 
     <%# カード情報の入力 %>
