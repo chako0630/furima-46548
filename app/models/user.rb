@@ -22,5 +22,4 @@ class User < ApplicationRecord
   end
 
   validates :birthday, presence: true
-
 end
