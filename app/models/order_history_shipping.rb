@@ -7,7 +7,6 @@ class OrderHistoryShipping
     validates :item_id
     validates :user_id
     validates :postscript
-    validates :prefecture_id
     validates :city
     validates :house_number
     validates :phone_number
