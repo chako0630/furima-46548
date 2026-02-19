@@ -1,7 +1,7 @@
 class OrderHistoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item, only: [:index, :create]
-  before_action :move_to_index, only: [:index, :edit, :create]
+  before_action :move_to_index, only: [:index, :create]
 
   def index
     gon.public_key = ENV['PAYJP_PUBLIC_KEY']
@@ -44,7 +44,7 @@ class OrderHistoriesController < ApplicationController
   end
 
   def move_to_index
-    return unless current_user.id != @item.user_id || @item.order_history.present?
+    return unless current_user.id == @item.user_id || @item.order_history.present?
 
     redirect_to root_path
   end
