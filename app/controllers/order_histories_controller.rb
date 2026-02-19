@@ -44,8 +44,7 @@ class OrderHistoriesController < ApplicationController
   end
 
   def move_to_index
-    return unless current_user.id == @item.user_id || @item.order_history.present?
-
+    if current_user.id != @item.user_id || @item.order_history.present?
     redirect_to root_path
   end
 end
